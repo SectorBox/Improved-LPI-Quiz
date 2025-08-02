@@ -70,10 +70,12 @@ function checkAnswer(q, feedback, btn) {
     : JSON.stringify(userAnswer.sort()) === JSON.stringify(correct.sort());
 
   answered++;
+  if (isCorrect) {
+    score++;
+  }
   updateScore();
 
   if (isCorrect) {
-    score++;
     feedback.className = "feedback correct";
     feedback.textContent = "✅ Correct!";
     setTimeout(() => {
@@ -103,7 +105,7 @@ function showReview() {
     return;
   }
 
-  review.forEach((item, idx) => {
+  review.forEach((item) => {
     const el = document.createElement("div");
     el.className = "review-item";
     el.textContent = item.question;
