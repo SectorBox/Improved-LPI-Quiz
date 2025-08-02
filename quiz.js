@@ -69,15 +69,20 @@ function checkAnswer(q, feedback, btn) {
     ? userAnswer[0].toLowerCase() === correct[0].toLowerCase()
     : JSON.stringify(userAnswer.sort()) === JSON.stringify(correct.sort());
 
+  // Always increment answered
   answered++;
+
   if (isCorrect) {
     score++;
   }
+
+  // Update score right away so it's visible before moving on
   updateScore();
 
   if (isCorrect) {
     feedback.className = "feedback correct";
     feedback.textContent = "✅ Correct!";
+    // Wait a moment so the score can be seen before loading next question
     setTimeout(() => {
       currentQuestion++;
       showQuestion();
