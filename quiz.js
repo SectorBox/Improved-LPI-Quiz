@@ -85,6 +85,8 @@ function checkAnswer(q, feedback, btn) {
   } else {
     feedback.className = "feedback incorrect";
     feedback.innerHTML = `❌ Incorrect.<br>Correct answer(s): <strong>${correct.join(", ")}</strong>`;
+
+    // ✅ Always push wrong answers (typed or multiple choice) into review list
     btn.textContent = "Next Question";
     btn.onclick = () => {
       review.push({ question: q.question, correct, user: userAnswer });
@@ -93,6 +95,7 @@ function checkAnswer(q, feedback, btn) {
     };
   }
 }
+
 
 function endTest() {
   // End the test early and go straight to review
