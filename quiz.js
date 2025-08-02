@@ -5,7 +5,7 @@ let answered = 0;
 let review = [];
 const typedQuestionIds = new Set([20, 40, 56, 63]);
 
-// Load dark mode preference on page load
+// Load dark mode preference
 window.onload = function () {
   if (localStorage.getItem("darkMode") === "true") {
     document.body.classList.add("dark");
@@ -40,12 +40,17 @@ function showQuestion() {
   qBox.innerHTML = `<p><strong>Question ${currentQuestion + 1} of ${questions.length}:</strong></p><h3>${q.question}</h3>`;
 
   if (typedQuestionIds.has(q.id)) {
+    // Typed-answer question
     qBox.innerHTML += '<input type="text" id="typedAnswer" placeholder="Type your answer">';
   } else {
+    // Detect if question allows multiple selections
+    const multiSelect = q.question.toLowerCase().includes("choose 2") || q.question.toLowerCase().includes("choose 3");
+    const inputType = multiSelect ? "checkbox" : "radio";
+
     q.options.forEach(opt => {
       const label = document.createElement("label");
       label.classList.add("option");
-      label.innerHTML = `<input type="checkbox" name="option" value="${opt}"> ${opt}`;
+      label.innerHTML = `<input type="${inputType}" name="option" value="${opt}"> ${opt}`;
       qBox.appendChild(label);
     });
   }
@@ -74,7 +79,7 @@ function checkAnswer(q, feedback, btn) {
   }
 
   const isCorrect = typedQuestionIds.has(q.id)
-    ? userAnswer[0].toLowerCase() === correct[0].toLowerCase()
+    ? userAnswer[0]?.toLowerCase() === correct[0].toLowerCase()
     : JSON.stringify(userAnswer.sort()) === JSON.stringify(correct.sort());
 
   answered++;
