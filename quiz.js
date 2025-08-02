@@ -5,6 +5,14 @@ let answered = 0;
 let review = [];
 const typedQuestionIds = new Set([20, 40, 56, 63]);
 
+// Load dark mode preference on page load
+window.onload = function () {
+  if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark");
+    document.getElementById("darkModeBtn").textContent = "☀️ Light Mode";
+  }
+};
+
 fetch('lpi_questions.json')
   .then(res => res.json())
   .then(data => {
@@ -85,8 +93,6 @@ function checkAnswer(q, feedback, btn) {
   } else {
     feedback.className = "feedback incorrect";
     feedback.innerHTML = `❌ Incorrect.<br>Correct answer(s): <strong>${correct.join(", ")}</strong>`;
-
-    // ✅ Always push wrong answers (typed or multiple choice) into review list
     btn.textContent = "Next Question";
     btn.onclick = () => {
       review.push({ question: q.question, correct, user: userAnswer });
@@ -96,10 +102,7 @@ function checkAnswer(q, feedback, btn) {
   }
 }
 
-
 function endTest() {
-  // End the test early and go straight to review
-  questions = questions.slice(0, currentQuestion); // keep only answered questions in memory
   showReview();
 }
 
@@ -134,4 +137,11 @@ function showReviewDetails(item) {
   const reviewDiv = document.getElementById("review");
   reviewDiv.innerHTML = "";
   reviewDiv.appendChild(details);
+}
+
+function toggleDarkMode() {
+  document.body.classList.toggle("dark");
+  const isDark = document.body.classList.contains("dark");
+  localStorage.setItem("darkMode", isDark);
+  document.getElementById("darkModeBtn").textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
 }
