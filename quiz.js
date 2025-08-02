@@ -69,15 +69,10 @@ function checkAnswer(q, feedback, btn) {
     ? userAnswer[0].toLowerCase() === correct[0].toLowerCase()
     : JSON.stringify(userAnswer.sort()) === JSON.stringify(correct.sort());
 
-  // ✅ Always increment answered first
   answered++;
-
-  // ✅ If correct, increment score before updating
   if (isCorrect) {
     score++;
   }
-
-  // ✅ Now update score display immediately
   updateScore();
 
   if (isCorrect) {
@@ -99,6 +94,11 @@ function checkAnswer(q, feedback, btn) {
   }
 }
 
+function endTest() {
+  // End the test early and go straight to review
+  questions = questions.slice(0, currentQuestion); // keep only answered questions in memory
+  showReview();
+}
 
 function showReview() {
   const quizDiv = document.getElementById("quiz");
