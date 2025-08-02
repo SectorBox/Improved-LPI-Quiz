@@ -69,20 +69,20 @@ function checkAnswer(q, feedback, btn) {
     ? userAnswer[0].toLowerCase() === correct[0].toLowerCase()
     : JSON.stringify(userAnswer.sort()) === JSON.stringify(correct.sort());
 
-  // Always increment answered
+  // ✅ Always increment answered first
   answered++;
 
+  // ✅ If correct, increment score before updating
   if (isCorrect) {
     score++;
   }
 
-  // Update score right away so it's visible before moving on
+  // ✅ Now update score display immediately
   updateScore();
 
   if (isCorrect) {
     feedback.className = "feedback correct";
     feedback.textContent = "✅ Correct!";
-    // Wait a moment so the score can be seen before loading next question
     setTimeout(() => {
       currentQuestion++;
       showQuestion();
@@ -98,6 +98,7 @@ function checkAnswer(q, feedback, btn) {
     };
   }
 }
+
 
 function showReview() {
   const quizDiv = document.getElementById("quiz");
