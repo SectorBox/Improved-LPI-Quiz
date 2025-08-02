@@ -4,13 +4,15 @@
   <meta charset="UTF-8">
   <title>LPI Linux Quiz</title>
   <style>
-    body { font-family: 'Segoe UI', sans-serif; max-width: 800px; margin: auto; background: #f0f2f5; padding: 20px; }
+    body { font-family: 'Segoe UI', sans-serif; max-width: 800px; margin: auto; background: #f0f2f5; padding: 20px; transition: background 0.3s, color 0.3s; }
     h1, h2 { text-align: center; }
-    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
     #score { font-size: 18px; font-weight: bold; }
+    #darkModeBtn { background: #343a40; color: white; padding: 8px 14px; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; }
+    #darkModeBtn:hover { background: #23272b; }
     #endBtn { background: #dc3545; color: white; padding: 8px 14px; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; }
     #endBtn:hover { background: #c82333; }
-    .question { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
+    .question { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; transition: background 0.3s, color 0.3s; }
     .option { display: block; margin: 8px 0; }
     .feedback { margin-top: 10px; font-weight: bold; padding: 10px; border-radius: 6px; }
     .feedback.correct { background: #d4edda; color: #155724; }
@@ -18,15 +20,26 @@
     button { margin-top: 12px; padding: 10px 18px; font-size: 16px; border: none; background: #007bff; color: white; border-radius: 5px; cursor: pointer; }
     button:hover { background: #0056b3; }
     input[type="text"] { width: 100%; padding: 10px; margin-top: 10px; font-size: 16px; box-sizing: border-box; }
-    .review-item { margin: 10px 0; padding: 10px; background: white; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); cursor: pointer; }
-    .review-details { margin-top: 20px; background: white; padding: 15px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+    .review-item { margin: 10px 0; padding: 10px; background: white; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); cursor: pointer; transition: background 0.3s, color 0.3s; }
+    .review-details { margin-top: 20px; background: white; padding: 15px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); transition: background 0.3s, color 0.3s; }
+
+    /* Dark mode styles */
+    body.dark { background: #121212; color: #e0e0e0; }
+    body.dark .question, body.dark .review-item, body.dark .review-details { background: #1e1e1e; color: #e0e0e0; }
+    body.dark #darkModeBtn { background: #ffc107; color: black; }
+    body.dark #darkModeBtn:hover { background: #e0a800; }
+    body.dark .feedback.correct { background: #234d2d; color: #b2ffb2; }
+    body.dark .feedback.incorrect { background: #4d2323; color: #ffb2b2; }
   </style>
 </head>
 <body>
   <h1>LPI Linux Essentials Quiz</h1>
   <div class="top-bar">
     <div id="score"></div>
-    <button id="endBtn" onclick="endTest()">End Test & Review</button>
+    <div>
+      <button id="darkModeBtn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+      <button id="endBtn" onclick="endTest()">End Test & Review</button>
+    </div>
   </div>
   <div id="quiz"></div>
   <div id="review"></div>
