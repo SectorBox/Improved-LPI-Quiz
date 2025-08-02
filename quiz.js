@@ -43,8 +43,12 @@ function showQuestion() {
     // Typed-answer question
     qBox.innerHTML += '<input type="text" id="typedAnswer" placeholder="Type your answer">';
   } else {
-    // ✅ Multi-select detection based purely on JSON answer array length
-    const multiSelect = q.answer.length > 1;
+    // ✅ Multi-select detection based on JSON + question text
+    const multiSelect =
+      q.answer.length > 1 ||
+      q.question.toLowerCase().includes("choose two") ||
+      q.question.toLowerCase().includes("choose 3");
+
     const inputType = multiSelect ? "checkbox" : "radio";
 
     q.options.forEach(opt => {
