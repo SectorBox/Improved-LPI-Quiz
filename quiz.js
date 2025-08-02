@@ -43,12 +43,8 @@ function showQuestion() {
     // Typed-answer question
     qBox.innerHTML += '<input type="text" id="typedAnswer" placeholder="Type your answer">';
   } else {
-    // ✅ Detect if multiple answers are allowed
-    const multiSelect = 
-      q.answer.length > 1 || 
-      q.question.toLowerCase().includes("choose 2") || 
-      q.question.toLowerCase().includes("choose 3");
-
+    // ✅ Multi-select detection based purely on JSON answer array length
+    const multiSelect = q.answer.length > 1;
     const inputType = multiSelect ? "checkbox" : "radio";
 
     q.options.forEach(opt => {
@@ -58,7 +54,7 @@ function showQuestion() {
       qBox.appendChild(label);
     });
 
-    // Optional: Add a note for clarity on multi-select questions
+    // Add note for multi-select clarity
     if (multiSelect) {
       const note = document.createElement("p");
       note.style.fontSize = "13px";
