@@ -6,6 +6,10 @@
   <style>
     body { font-family: 'Segoe UI', sans-serif; max-width: 800px; margin: auto; background: #f0f2f5; padding: 20px; }
     h1, h2 { text-align: center; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+    #score { font-size: 18px; font-weight: bold; }
+    #endBtn { background: #dc3545; color: white; padding: 8px 14px; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; }
+    #endBtn:hover { background: #c82333; }
     .question { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
     .option { display: block; margin: 8px 0; }
     .feedback { margin-top: 10px; font-weight: bold; padding: 10px; border-radius: 6px; }
@@ -14,14 +18,16 @@
     button { margin-top: 12px; padding: 10px 18px; font-size: 16px; border: none; background: #007bff; color: white; border-radius: 5px; cursor: pointer; }
     button:hover { background: #0056b3; }
     input[type="text"] { width: 100%; padding: 10px; margin-top: 10px; font-size: 16px; box-sizing: border-box; }
-    #score { text-align: right; margin-bottom: 10px; font-size: 18px; font-weight: bold; }
     .review-item { margin: 10px 0; padding: 10px; background: white; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); cursor: pointer; }
     .review-details { margin-top: 20px; background: white; padding: 15px; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
   </style>
 </head>
 <body>
   <h1>LPI Linux Essentials Quiz</h1>
-  <div id="score"></div>
+  <div class="top-bar">
+    <div id="score"></div>
+    <button id="endBtn" onclick="endTest()">End Test & Review</button>
+  </div>
   <div id="quiz"></div>
   <div id="review"></div>
   <script src="quiz.js"></script>
