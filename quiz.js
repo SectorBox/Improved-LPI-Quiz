@@ -123,7 +123,9 @@ function endTest() {
 function showReview() {
   const quizDiv = document.getElementById("quiz");
   const reviewDiv = document.getElementById("review");
-  quizDiv.innerHTML = `<h2>Quiz Complete!</h2><p>Final Score: ${(score / answered * 100).toFixed(1)}% (${score}/${answered})</p><h3>Missed Questions:</h3>`;
+  quizDiv.innerHTML = `<h2>Quiz Complete!</h2>
+                       <p>Final Score: ${(score / answered * 100).toFixed(1)}% (${score}/${answered})</p>
+                       <h3>Missed Questions:</h3>`;
   reviewDiv.innerHTML = "";
 
   if (review.length === 0) {
@@ -143,13 +145,18 @@ function showReview() {
 }
 
 function showReviewDetails(item) {
-  const details = document.createElement("div");
-  details.className = "review-details";
-  details.innerHTML = `<h4>Question:</h4><p>${item.question}</p>
-                       <h4>Your Answer:</h4><p>${item.user.join(", ") || "(No answer)"}</p>
-                       <h4>Correct Answer(s):</h4><p>${item.correct.join(", ")}</p>`;
   const reviewDiv = document.getElementById("review");
   reviewDiv.innerHTML = "";
+
+  const details = document.createElement("div");
+  details.className = "review-details";
+  details.innerHTML = `
+    <h4>Question:</h4><p>${item.question}</p>
+    <h4>Your Answer:</h4><p>${item.user.join(", ") || "(No answer)"}</p>
+    <h4>Correct Answer(s):</h4><p>${item.correct.join(", ")}</p>
+    <button style="margin-top: 15px; padding: 8px 14px; font-size: 14px; border: none; background: #007bff; color: white; border-radius: 5px; cursor: pointer;"
+      onclick="showReview()">⬅ Back to Review List</button>
+  `;
   reviewDiv.appendChild(details);
 }
 
